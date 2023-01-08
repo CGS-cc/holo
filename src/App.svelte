@@ -20,7 +20,7 @@
 
 <main>
 	<CardList>
-    <span>1
+    <span>
 				<Card
 					name="Bulbasaur"
 					img="https://dl.dropboxusercontent.com/s/90ef0fqjxahoed3/dauntless.png?raw=1"
@@ -29,7 +29,7 @@
 					subtypes={["Basic"]}
 					rarity="Rare Holo"
 				/></span>
-    <span>2
+    <span>
         <Card
 					name="Articuno"
 					img="https://dl.dropboxusercontent.com/s/b3bj4mv45u3zbme/dwarfling.png?raw=1"
@@ -39,7 +39,7 @@
 					rarity="Rare Holo"
 				/>
     </span>
-    <span>3
+    <span>
     <Card
 					name="Pikachu"
 					img="https://dl.dropboxusercontent.com/s/28h0h9pzcbo1qck/equanimous.png?raw=1"
@@ -48,7 +48,7 @@
 					subtypes={["Basic"]}
 					rarity="Rare Holo"
 				/></span>
-        <span>4<Card
+        <span><Card
 					name="Radiant Venusaur"
 					img="https://dl.dropboxusercontent.com/s/8vs93s1rpa3a2a2/colossus.png?raw=1"
 					number="TG241"
@@ -56,7 +56,7 @@
 					subtypes={["Basic"]}
 					rarity="Rare Holo"
 				/></span>
-          <span>5
+          <span>
            <Card
 					name="Pikachu"
 					img="https://dl.dropboxusercontent.com/s/6bm5wseez3nf9ee/peregrination.png?raw=1"
