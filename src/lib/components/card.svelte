@@ -166,8 +166,8 @@
           on:load={imageLoader}
           loading="lazy"
         />
-        <Shine {subtypes} {supertype} />
-        <Glare {subtypes} {rarity} />
+        <Shine />
+        <Glare />
       </div>
     </button>
   </div>

@@ -1,11 +1,4 @@
-<script>
-
-  export let subtypes = "basic";
-  export let supertype = "regular";
-
-</script>
-
-  <div class="card__shine {subtypes} {supertype}" />
+  <div class="card__shine" />
 
 <style>
 
