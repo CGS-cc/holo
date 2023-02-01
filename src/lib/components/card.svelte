@@ -23,15 +23,6 @@
   const front_loading =
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAuCAYAAACmsnC6AAAAN0lEQVR42u3OIQEAMAgAsNP/AkFfyIDCbAkWP6vfsZCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQ2BtyOnuhnmSZZAAAAABJRU5ErkJggg==";
 
-  let img_base = img.startsWith("http") ? "" : "https://dl.dropboxusercontent.com/s/k7qsv879vf3vv8w/test.png?raw=1";
-  let front_img = "";
-
-  const galaxyPosition = Math.floor(Math.random()*1500);
-
-  setTimeout(() => {
-    front_img = img_base + img;
-  }, 20);
-
   let thisCard;
   let rotator;
   let debounce;
@@ -220,7 +211,6 @@
           ($springGlare.x - 50) * ($springGlare.x - 50)
       ) / 50, 0, 1)
     };
-    --galaxybg: center ${galaxyPosition}px;
 	`;
 
   $: {
@@ -315,17 +305,13 @@
         src={back_img}
         alt=""
         loading="lazy"
-        width="660"
-        height="921"
       />
       <div class="card__front">
         <img
-          src={front_img}
+          src={img}
           alt=""
           on:load={imageLoader}
           loading="lazy"
-          width="660"
-          height="921"
         />
         <Shine {subtypes} {supertype} />
         <Glare {subtypes} {rarity} />
@@ -356,7 +342,7 @@
 		grid-gap: 2vw;
 		transform-style: preserve-3d;
 		height: 100%;
-		max-width: 600px;
+		max-width: 450px;
 		margin: auto;
 		padding: 50px;
 		position: relative;
