@@ -1,7 +1,5 @@
 <script>
   import { spring } from "svelte/motion";
-  import { activeCard } from "../stores/activeCard.js";
-  import { orientation, resetBaseOrientation } from "../stores/orientation.js";
   import { clamp, round } from "../helpers/Math.js";
 
   import Glare from "../components/card-glare.svelte";
@@ -18,19 +16,11 @@
   export let rarity = "common";
   export let gallery = false;
 
-  const back_loading =
-    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAuCAYAAACmsnC6AAAANklEQVR42u3OMQEAAAQAMKJJJT4ZXJ4twTKqJ56lhISEhISEhISEhISEhISEhISEhISEhMTdAodwTxGtMFP/AAAAAElFTkSuQmCC";
-  const front_loading =
-    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAuCAYAAACmsnC6AAAAN0lEQVR42u3OIQEAMAgAsNP/AkFfyIDCbAkWP6vfsZCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQ2BtyOnuhnmSZZAAAAABJRU5ErkJggg==";
-
   let thisCard;
   let rotator;
-  let debounce;
   let active = false;
   let interacting = false;
-  let firstPop = true;
   let loading = true;
-  let isVisible = document.visibilityState === "visible";
 
   const springR = { stiffness: 0.066, damping: 0.25 };
   const springD = { stiffness: 0.033, damping: 0.45 };
@@ -44,10 +34,6 @@
 
   const interact = (e) => {
 
-
-    if (isVisible && $activeCard && $activeCard !== thisCard) {
-      return (interacting = false);
-    }
 
     interacting = true;
 
@@ -114,75 +100,7 @@
 
   const deactivate = (e) => {
     interactEnd();
-    $activeCard = undefined;
   };
-
-  const reposition = (e) => {
-    clearTimeout(debounce);
-    debounce = setTimeout(() => {
-      if ($activeCard && $activeCard === thisCard) {
-        setCenter();
-      }
-    }, 300);
-  };
-
-  const setCenter = () => {
-    const rect = thisCard.getBoundingClientRect(); // get element's size/position
-    const view = document.documentElement; // get window/viewport size
-
-    const delta = {
-      x: round(view.clientWidth / 2 - rect.x - rect.width / 2),
-      y: round(view.clientHeight / 2 - rect.y - rect.height / 2),
-    };
-    springTranslate.set({
-      x: delta.x,
-      y: delta.y,
-    });
-  };
-
-  const popover = () => {
-    const rect = thisCard.getBoundingClientRect(); // get element's size/position
-    let delay = 100;
-    let scaleW = (window.innerWidth / rect.width) * 0.9;
-    let scaleH = (window.innerHeight / rect.height) * 0.9;
-    let scaleF = 1.75;
-    setCenter();
-    if (firstPop) {
-      delay = 1000;
-      springRotateDelta.set({
-        x: 360,
-        y: 0,
-      });
-    }
-    firstPop = false;
-    springScale.set(Math.min(scaleW, scaleH, scaleF));
-    interactEnd(null, delay);
-  };
-
-  const retreat = () => {
-    springScale.set(1, { soft: true });
-    springTranslate.set({ x: 0, y: 0 }, { soft: true });
-    springRotateDelta.set({ x: 0, y: 0 }, { soft: true });
-    interactEnd(null, 100);
-  };
-
-  const reset = () => {
-    interactEnd(null, 0);
-    springScale.set(1, { hard: true });
-    springTranslate.set({ x: 0, y: 0 }, { hard: true });
-    springRotateDelta.set({ x: 0, y: 0 }, { hard: true });
-    springRotate.set({ x: 0, y: 0 }, { hard: true });
-  };
-
-  $: {
-    if ($activeCard && $activeCard === thisCard) {
-      popover();
-      active = true;
-    } else {
-      retreat();
-      active = false;
-    }
-  }
 
   $: styles = `
 		--mx: ${$springGlare.x}%;
@@ -206,67 +124,18 @@
 
   $: {
     rarity = rarity.toLowerCase();
-    supertype = supertype.toLowerCase();
     number = number.toLowerCase();
     gallery = number.startsWith("tg");
-    if (Array.isArray(subtypes)) {
-      subtypes = subtypes.join(" ").toLowerCase();
-    }
+
   }
 
   const imageLoader = (e) => {
     loading = false;
   };
 
-  const orientate = (e) => {
-    const x = e.relative.gamma;
-    const y = e.relative.beta;
-
-    const max = { x: 16, y: 18 };
-    const degrees = { x: clamp(x, -max.x, max.x), y: clamp(y, -max.y, max.y) };
-    const percent = {
-      x: 50 + (degrees.x / (max.x * 2)) * 100,
-      y: 50 + (degrees.y / (max.y * 2)) * 100,
-    };
-
-    springBackground.stiffness = springR.stiffness;
-    springBackground.damping = springR.damping;
-    springBackground.set({
-      x: round(50 + (max.x * 2 * ((50 - -percent.x) / 100) - max.x * 2)),
-      y: round(50 + (max.y * 2 * ((50 + percent.y) / 100) - max.y * 2)),
-    });
-    springRotate.stiffness = springR.stiffness;
-    springRotate.damping = springR.damping;
-    springRotate.set({
-      x: round(degrees.x * -1),
-      y: round(degrees.y),
-    });
-    springGlare.stiffness = springR.stiffness;
-    springGlare.damping = springR.damping;
-    springGlare.set({
-      x: round(percent.x),
-      y: round(percent.y),
-      o: 1,
-    });
-  };
-
-  $: {
-    if ($activeCard && $activeCard === thisCard) {
-      interacting = true;
-      orientate($orientation);
-    }
-  }
-
-  document.addEventListener("visibilitychange", (e) => {
-    isVisible = document.visibilityState === "visible";
-    if (!isVisible) {
-      reset();
-    }
-  });
 
 </script>
 
-<svelte:window on:scroll={reposition} />
 
 <div
   class="card"
@@ -333,7 +202,7 @@
 		grid-gap: 2vw;
 		transform-style: preserve-3d;
 		height: 100%;
-		max-width: 450px;
+		max-width: 350px;
 		margin: auto;
 		padding: 50px;
 		position: relative;

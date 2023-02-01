@@ -17,6 +17,7 @@
 */
 
 .card__shine {
+  
   display: grid;
   overflow: hidden;
   z-index: 3;
