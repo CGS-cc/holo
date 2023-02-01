@@ -352,6 +352,15 @@
   }
 
   .card {
+    display: grid;
+		grid-template-columns: 3fr;
+		grid-gap: 2vw;
+		transform-style: preserve-3d;
+		height: 100%;
+		max-width: 600px;
+		margin: auto;
+		padding: 50px;
+		position: relative;
     --radius: 4.55%;
     --back: #004177;
     --glow: #69d1e9;
