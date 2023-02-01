@@ -1,6 +1,5 @@
 <script>
   import { spring } from "svelte/motion";
-  import { onMount } from "svelte";
   import { activeCard } from "../stores/activeCard.js";
   import { orientation, resetBaseOrientation } from "../stores/orientation.js";
   import { clamp, round } from "../helpers/Math.js";
