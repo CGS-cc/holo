@@ -112,15 +112,6 @@
     }, delay);
   };
 
-  const activate = (e) => {
-    if ($activeCard && $activeCard === thisCard) {
-      $activeCard = undefined;
-    } else {
-      $activeCard = thisCard;
-      resetBaseOrientation();
-    }
-  };
-
   const deactivate = (e) => {
     interactEnd();
     $activeCard = undefined;
