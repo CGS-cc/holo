@@ -9,12 +9,9 @@
     "https://dl.dropboxusercontent.com/s/8vg2bgkhiyu2fcu/background.png?raw=1";
   export let img = "";
 
-  export let name = "";
-  export let number = "0";
   export let subtypes = "basic";
   export let supertype = "regular";
   export let rarity = "common";
-  export let gallery = false;
 
   let thisCard;
   let rotator;
@@ -124,8 +121,6 @@
 
   $: {
     rarity = rarity.toLowerCase();
-    number = number.toLowerCase();
-    gallery = number.startsWith("tg");
 
   }
 
@@ -142,11 +137,9 @@
   class:active
   class:interacting
   class:loading
-  data-number={number}
   data-subtypes={subtypes}
   data-supertype={supertype}
   data-rarity={rarity}
-  data-gallery={gallery}
   style={styles}
   bind:this={thisCard}
 >

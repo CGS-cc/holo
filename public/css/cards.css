@@ -1,6 +1,6 @@
 
 
-.card[data-rarity="rare holo"][data-gallery="true"] .card__shine {
+.card[data-rarity="rare holo"] .card__shine {
 
   --space: 5%;
   --angle: -22deg;
@@ -27,7 +27,7 @@
 
 }
 
-.card[data-rarity="rare holo"][data-gallery="true"] .card__shine:after {
+.card[data-rarity="rare holo"] .card__shine:after {
   
   content: "";
 
