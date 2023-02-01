@@ -184,23 +184,19 @@
   }
 
   .card {
-    display: grid;
-		grid-template-columns: 3fr;
-		grid-gap: 2vw;
 		transform-style: preserve-3d;
 		height: 100%;
 		max-width: 350px;
 		margin: auto;
 		padding: 50px;
 		position: relative;
-    --radius: 4.55%;
+    --radius: 3.25%;
     --back: #004177;
     --glow: #69d1e9;
     z-index: calc(var(--s) * 100);
     transform: translate3d(0, 0, 0.1px);
     -webkit-transform: translate3d(0, 0, 0.1px);
     will-change: transform, visibility;
-    transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
   }
 
