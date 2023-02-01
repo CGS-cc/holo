@@ -184,6 +184,7 @@
   }
 
   .card {
+    
 		transform-style: preserve-3d;
 		height: 100%;
 		max-width: 350px;
