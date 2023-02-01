@@ -9,11 +9,8 @@
     "https://dl.dropboxusercontent.com/s/8vg2bgkhiyu2fcu/background.png?raw=1";
   export let img = "";
 
-  export let subtypes = "basic";
-  export let supertype = "regular";
   export let rarity = "common";
 
-  let thisCard;
   let rotator;
   let active = false;
   let interacting = false;
@@ -137,11 +134,8 @@
   class:active
   class:interacting
   class:loading
-  data-subtypes={subtypes}
-  data-supertype={supertype}
   data-rarity={rarity}
   style={styles}
-  bind:this={thisCard}
 >
   <div class="card__translater">
     <button
@@ -279,7 +273,6 @@
 
   .card__rotator img {
     outline: 1px solid transparent;
-    aspect-ratio: 0.716;
     height: auto;
   }
 
@@ -308,4 +301,6 @@
     transform: rotateY(0deg);
     -webkit-transform: rotateY(0deg);
   }
+
+  
 </style>
